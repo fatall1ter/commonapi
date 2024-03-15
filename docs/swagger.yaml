@@ -1,0 +1,1119 @@
+definitions:
+  domain.Asset:
+    properties:
+      changed:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      serviceDeskId:
+        type: integer
+      serviceDeskParentId:
+        type: integer
+    type: object
+  domain.Assets:
+    items:
+      $ref: '#/definitions/domain.Asset'
+    type: array
+  domain.ControllerTask:
+    properties:
+      task:
+        type: string
+    type: object
+  domain.ControllerTasks:
+    items:
+      $ref: '#/definitions/domain.ControllerTask'
+    type: array
+  domain.CustomerConfig:
+    properties:
+      customerId:
+        type: integer
+      customerName:
+        type: string
+      customerTypeId:
+        type: integer
+      sdCreatorId:
+        type: integer
+      sdDestination:
+        type: string
+      sdServiceId:
+        type: integer
+    type: object
+  domain.CustomerConfigs:
+    items:
+      $ref: '#/definitions/domain.CustomerConfig'
+    type: array
+  domain.Entities:
+    items:
+      $ref: '#/definitions/domain.Entity'
+    type: array
+  domain.Entity:
+    properties:
+      description:
+        type: string
+      id:
+        type: string
+    type: object
+  domain.FTPServer:
+    properties:
+      password:
+        description: Password for login to FTP
+        type: string
+      root:
+        description: Root is subfolder for ftpUser home folder
+        type: string
+      server:
+        description: Server ip or DNS name of the ftp server
+        type: string
+      user:
+        description: User for logit to FTP
+        type: string
+    type: object
+  domain.FTPinfo:
+    properties:
+      comment:
+        description: Comment комментарий
+        type: string
+      deviceFtp:
+        $ref: '#/definitions/domain.FTPServer'
+        description: DeviceFTP настройки для устройств выгружающих видео на ФТП
+        type: object
+      localPathFtp:
+        description: LocalPathFTP папка на локальном ФТП сервере клиента
+        type: string
+      mainFtp:
+        $ref: '#/definitions/domain.FTPServer'
+        description: MainFTP настройки для внешнего взаимодействия с ФТП сервером,
+          в основном из сети Ваткома
+        type: object
+      proxyFtp:
+        $ref: '#/definitions/domain.FTPServer'
+        description: ProxyFTP настройки для взаимодействия с ФТП сервером неким агентом.
+          ФТП сервер может быть как буферный так и нет
+        type: object
+      verified:
+        description: Verified флаг верификации параметров - 1 верифицирвана и параметрам
+          можно доверять, 0 - наоборот
+        type: string
+      whenVerified:
+        description: WhenVerified когда произведена верификация
+        type: string
+      whoVerified:
+        description: WhoVerified имя того, кто произвел верификацию
+        type: string
+    type: object
+  domain.ManualCounting:
+    properties:
+      chkSumOut:
+        type: integer
+      chkSumin:
+        type: integer
+      chkTimeEnd:
+        type: string
+      chkTimeStart:
+        type: string
+      fSumIn:
+        type: integer
+      fSumOut:
+        type: integer
+      message:
+        type: string
+      sernomer:
+        type: string
+      sigmaSumIn:
+        type: number
+      sigmaSumOut:
+        type: number
+    type: object
+  domain.ManualCountings:
+    items:
+      $ref: '#/definitions/domain.ManualCounting'
+    type: array
+  domain.Project:
+    properties:
+      db_type:
+        type: integer
+      dbName:
+        type: string
+      id:
+        type: integer
+      ip:
+        type: string
+      isEnabled:
+        type: boolean
+      login:
+        type: string
+      managerId:
+        type: integer
+      managerName:
+        type: string
+      name:
+        type: string
+      parentId:
+        type: integer
+      password:
+        type: string
+      port:
+        type: integer
+      typeId:
+        type: integer
+      typeName:
+        type: string
+    type: object
+  domain.Projects:
+    items:
+      $ref: '#/definitions/domain.Project'
+    type: array
+  domain.TaskComment:
+    properties:
+      comment:
+        type: string
+    type: object
+  domain.TaskStatus:
+    properties:
+      comment:
+        type: string
+      isPrivateComment:
+        type: boolean
+      resultFieldName:
+        type: string
+      resultFieldValue:
+        type: string
+      statusId:
+        type: integer
+    type: object
+  domain.VideocheckConfig:
+    properties:
+      localCam:
+        type: boolean
+      localFtp:
+        type: boolean
+      localServer:
+        type: boolean
+      options:
+        type: string
+      projectId:
+        type: integer
+    type: object
+  domain.VideocheckConfigs:
+    items:
+      $ref: '#/definitions/domain.VideocheckConfig'
+    type: array
+  infra.AssetsResponse:
+    properties:
+      data:
+        $ref: '#/definitions/domain.Assets'
+        type: object
+      result_set:
+        $ref: '#/definitions/infra.ResultSet'
+        type: object
+    type: object
+  infra.CustomerResponse:
+    properties:
+      data:
+        $ref: '#/definitions/domain.CustomerConfigs'
+        type: object
+      result_set:
+        $ref: '#/definitions/infra.ResultSet'
+        type: object
+    type: object
+  infra.ErrResponse:
+    properties:
+      code:
+        description: application-specific error code
+        type: integer
+      error:
+        description: application-level error message, for debugging
+        type: string
+      status:
+        description: user-level status message
+        type: string
+    type: object
+  infra.HTTPError:
+    properties:
+      message:
+        type: object
+    type: object
+  infra.ProjectMCResponse:
+    properties:
+      data:
+        $ref: '#/definitions/domain.ManualCountings'
+        type: object
+      result_set:
+        $ref: '#/definitions/infra.ResultSet'
+        type: object
+    type: object
+  infra.ProjectsResponse:
+    properties:
+      data:
+        $ref: '#/definitions/domain.Projects'
+        type: object
+      result_set:
+        $ref: '#/definitions/infra.ResultSet'
+        type: object
+    type: object
+  infra.ReferenceResponse:
+    properties:
+      data:
+        $ref: '#/definitions/domain.Entities'
+        type: object
+      result_set:
+        $ref: '#/definitions/infra.ResultSet'
+        type: object
+    type: object
+  infra.ResultSet:
+    properties:
+      count:
+        type: integer
+      limit:
+        type: integer
+      offset:
+        type: integer
+      total:
+        type: integer
+    type: object
+  infra.SDTasksResponse:
+    properties:
+      data:
+        $ref: '#/definitions/domain.ControllerTasks'
+        type: object
+      result_set:
+        $ref: '#/definitions/infra.ResultSet'
+        type: object
+    type: object
+  infra.SuccessResponse:
+    properties:
+      httpcode:
+        description: http response status code
+        type: integer
+      message:
+        description: text of message
+        type: string
+      status:
+        description: user-level status message
+        type: string
+    type: object
+  infra.VideoCheckResponse:
+    properties:
+      data:
+        $ref: '#/definitions/domain.VideocheckConfigs'
+        type: object
+      result_set:
+        $ref: '#/definitions/infra.ResultSet'
+        type: object
+    type: object
+info:
+  contact:
+    email: 1020@watcom.ru
+    name: CountMax
+    url: https://git.countmax.ru/countmax/commonapi
+  license: {}
+  title: CountMax Common API
+  version: "2.0"
+paths:
+  /health:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/infra.SuccessResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/infra.ErrResponse'
+      summary: healthcheck service eq repository connected
+      tags:
+      - health
+  /v2/assets:
+    get:
+      description: get slice of Assets with offset, limit parameters
+      parameters:
+      - description: default=0
+        in: query
+        name: offset
+        type: integer
+      - description: default=10
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/infra.AssetsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/infra.ErrResponse'
+        "405":
+          description: Method Not Allowed
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/infra.ErrResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Get all assets
+      tags:
+      - intraservice
+  /v2/assets/{id}:
+    get:
+      description: Get specified Asset by id
+      parameters:
+      - description: AssetID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Asset'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/infra.ErrResponse'
+        "405":
+          description: Method Not Allowed
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/infra.ErrResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Get asset by id
+      tags:
+      - intraservice
+  /v2/customers/{id}/configs:
+    get:
+      description: Get specified Customer by id
+      parameters:
+      - description: Code 1S
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.CustomerConfig'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/infra.ErrResponse'
+        "405":
+          description: Method Not Allowed
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/infra.ErrResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Get customer config by id
+      tags:
+      - cm_info
+  /v2/customers/configs:
+    get:
+      description: get slice of customer configuration with offset, limit, active
+        parameters
+      parameters:
+      - description: default=0
+        in: query
+        name: offset
+        type: integer
+      - description: default=10
+        in: query
+        name: limit
+        type: integer
+      - description: default=true
+        in: query
+        name: active
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/infra.CustomerResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/infra.ErrResponse'
+        "405":
+          description: Method Not Allowed
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/infra.ErrResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Get all customer configurations
+      tags:
+      - cm_info
+  /v2/entities:
+    get:
+      description: get slice of entities with offset, limit parameters
+      parameters:
+      - description: default=0
+        in: query
+        name: offset
+        type: integer
+      - description: default=10
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/infra.ReferenceResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/infra.ErrResponse'
+        "405":
+          description: Method Not Allowed
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/infra.ErrResponse'
+      summary: Get all entities types
+      tags:
+      - reference
+  /v2/entities/{id}:
+    get:
+      description: get entity by entity ID
+      parameters:
+      - description: entity id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Entity'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/infra.ErrResponse'
+        "405":
+          description: Method Not Allowed
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/infra.ErrResponse'
+      summary: Get entity by id
+      tags:
+      - reference
+  /v2/projects:
+    get:
+      description: get slice of customer/project configuration with DataBase connection
+        and offset, limit, active parameters
+      parameters:
+      - description: default=0
+        in: query
+        name: offset
+        type: integer
+      - description: default=10
+        in: query
+        name: limit
+        type: integer
+      - description: default=true
+        in: query
+        name: active
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/infra.ProjectsResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/infra.ErrResponse'
+        "405":
+          description: Method Not Allowed
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/infra.ErrResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Get all projects configurations
+      tags:
+      - cm_info
+  /v2/projects/{id}:
+    get:
+      description: |-
+        Get specified customer/project with database connection,
+        id can be colon separated format <customerID>:<DBTypeID>
+        example: 1234:1 or 1234:2, <DBTypeID> allowed 1,2,3,4,10
+      parameters:
+      - description: Code 1S[:DBTypeID]
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Project'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/infra.ErrResponse'
+        "405":
+          description: Method Not Allowed
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/infra.ErrResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Get customer's project config by id
+      tags:
+      - cm_info
+  /v2/projects/{id}/controllers/{cid}/manualcnts:
+    get:
+      description: |-
+        get slice of manual countings of specified controller in the  project of customer with parameters id,
+        cid and offset, limit parameters
+      parameters:
+      - description: default=0
+        in: query
+        name: offset
+        type: integer
+      - description: default=10
+        in: query
+        name: limit
+        type: integer
+      - description: Code 1S of customer
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: ControllerID
+        in: path
+        name: cid
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/infra.ProjectMCResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/infra.ErrResponse'
+        "405":
+          description: Method Not Allowed
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/infra.ErrResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Get all manual countings of controller
+      tags:
+      - cm_info
+  /v2/projects/{id}/ftpinfo:
+    get:
+      description: Get specified customer/project ftp settings
+      parameters:
+      - description: Code 1S
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.FTPinfo'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/infra.ErrResponse'
+        "405":
+          description: Method Not Allowed
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/infra.ErrResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Get customer's ftp settings by id
+      tags:
+      - cm_info
+  /v2/tasks/{id}/comment:
+    put:
+      description: Add comment to the Task in the ServiceDesk by TaskID
+      parameters:
+      - description: comment content
+        in: body
+        name: comment
+        required: true
+        schema:
+          $ref: '#/definitions/domain.TaskComment'
+      - description: TaskID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/infra.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/infra.ErrResponse'
+        "405":
+          description: Method Not Allowed
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/infra.ErrResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Add comment to task
+      tags:
+      - intraservice
+  /v2/tasks/{id}/status:
+    put:
+      description: Change status of the Task in the ServiceDesk by TaskID
+      parameters:
+      - description: status data description
+        in: body
+        name: status
+        required: true
+        schema:
+          $ref: '#/definitions/domain.TaskStatus'
+      - description: TaskID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/infra.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/infra.ErrResponse'
+        "405":
+          description: Method Not Allowed
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/infra.ErrResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Change status task
+      tags:
+      - intraservice
+  /v2/tasks/controllers/{sn}:
+    get:
+      description: Get slice of tasks (json) for controller by serial number with
+        limit parameters
+      parameters:
+      - description: default=10
+        in: query
+        name: limit
+        type: integer
+      - description: SerialNumber of controller
+        in: path
+        name: sn
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/infra.SDTasksResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/infra.ErrResponse'
+        "405":
+          description: Method Not Allowed
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/infra.ErrResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Get all tasks for controller's serial number
+      tags:
+      - intraservice
+  /v2/videochecks/configs:
+    get:
+      description: get slice of customer videocheck configuration with offset, limit
+        parameters
+      parameters:
+      - description: default=0
+        in: query
+        name: offset
+        type: integer
+      - description: default=10
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/infra.VideoCheckResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/infra.ErrResponse'
+        "405":
+          description: Method Not Allowed
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/infra.ErrResponse'
+      summary: Get all videocheck configurations
+      tags:
+      - cm_info
+    post:
+      consumes:
+      - application/json
+      description: inserts customer videocheck configuration
+      parameters:
+      - description: New videocheck configuration
+        in: body
+        name: videocheckConfig
+        required: true
+        schema:
+          $ref: '#/definitions/domain.VideocheckConfig'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/infra.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/infra.ErrResponse'
+        "405":
+          description: Method Not Allowed
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/infra.ErrResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Inserts new customer's videocheck configuration
+      tags:
+      - cm_info
+  /v2/videochecks/configs/{pid}:
+    delete:
+      consumes:
+      - application/json
+      description: delete customer videocheck configuration
+      parameters:
+      - description: Code 1S
+        in: path
+        name: pid
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/infra.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/infra.ErrResponse'
+        "405":
+          description: Method Not Allowed
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/infra.ErrResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Delete customer's videocheck configuration
+      tags:
+      - cm_info
+    get:
+      description: get customer videocheck configuration by customerID parameter
+      parameters:
+      - description: Code 1S
+        in: path
+        name: pid
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.CustomerConfig'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/infra.ErrResponse'
+        "405":
+          description: Method Not Allowed
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/infra.ErrResponse'
+      summary: Get customer's videocheck configuration
+      tags:
+      - cm_info
+    put:
+      consumes:
+      - application/json
+      description: updates customer videocheck configuration
+      parameters:
+      - description: Code 1S
+        in: path
+        name: pid
+        required: true
+        type: integer
+      - description: New videocheck configuration
+        in: body
+        name: videocheckConfig
+        required: true
+        schema:
+          $ref: '#/definitions/domain.VideocheckConfig'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/infra.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/infra.ErrResponse'
+        "405":
+          description: Method Not Allowed
+          schema:
+            $ref: '#/definitions/infra.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/infra.ErrResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Update customer's videocheck configuration
+      tags:
+      - cm_info
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

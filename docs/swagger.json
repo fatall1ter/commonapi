@@ -1,0 +1,1693 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "CountMax Common API",
+        "contact": {
+            "name": "CountMax",
+            "url": "https://git.countmax.ru/countmax/commonapi",
+            "email": "1020@watcom.ru"
+        },
+        "license": {},
+        "version": "2.0"
+    },
+    "paths": {
+        "/health": {
+            "get": {
+                "tags": [
+                    "health"
+                ],
+                "summary": "healthcheck service eq repository connected",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/infra.SuccessResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ErrResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/assets": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "get slice of Assets with offset, limit parameters",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "intraservice"
+                ],
+                "summary": "Get all assets",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "default=0",
+                        "name": "offset",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "default=10",
+                        "name": "limit",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/infra.AssetsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ErrResponse"
+                        }
+                    },
+                    "405": {
+                        "description": "Method Not Allowed",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ErrResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/assets/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Get specified Asset by id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "intraservice"
+                ],
+                "summary": "Get asset by id",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "AssetID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/domain.Asset"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ErrResponse"
+                        }
+                    },
+                    "405": {
+                        "description": "Method Not Allowed",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ErrResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/customers/configs": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "get slice of customer configuration with offset, limit, active parameters",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "cm_info"
+                ],
+                "summary": "Get all customer configurations",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "default=0",
+                        "name": "offset",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "default=10",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "default=true",
+                        "name": "active",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/infra.CustomerResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ErrResponse"
+                        }
+                    },
+                    "405": {
+                        "description": "Method Not Allowed",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ErrResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/customers/{id}/configs": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Get specified Customer by id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "cm_info"
+                ],
+                "summary": "Get customer config by id",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Code 1S",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/domain.CustomerConfig"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ErrResponse"
+                        }
+                    },
+                    "405": {
+                        "description": "Method Not Allowed",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ErrResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/entities": {
+            "get": {
+                "description": "get slice of entities with offset, limit parameters",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "reference"
+                ],
+                "summary": "Get all entities types",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "default=0",
+                        "name": "offset",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "default=10",
+                        "name": "limit",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ReferenceResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ErrResponse"
+                        }
+                    },
+                    "405": {
+                        "description": "Method Not Allowed",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ErrResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/entities/{id}": {
+            "get": {
+                "description": "get entity by entity ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "reference"
+                ],
+                "summary": "Get entity by id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "entity id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/domain.Entity"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ErrResponse"
+                        }
+                    },
+                    "405": {
+                        "description": "Method Not Allowed",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ErrResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/projects": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "get slice of customer/project configuration with DataBase connection and offset, limit, active parameters",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "cm_info"
+                ],
+                "summary": "Get all projects configurations",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "default=0",
+                        "name": "offset",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "default=10",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "default=true",
+                        "name": "active",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ProjectsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ErrResponse"
+                        }
+                    },
+                    "405": {
+                        "description": "Method Not Allowed",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ErrResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/projects/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Get specified customer/project with database connection,\nid can be colon separated format \u003ccustomerID\u003e:\u003cDBTypeID\u003e\nexample: 1234:1 or 1234:2, \u003cDBTypeID\u003e allowed 1,2,3,4,10",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "cm_info"
+                ],
+                "summary": "Get customer's project config by id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Code 1S[:DBTypeID]",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/domain.Project"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ErrResponse"
+                        }
+                    },
+                    "405": {
+                        "description": "Method Not Allowed",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ErrResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/projects/{id}/controllers/{cid}/manualcnts": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "get slice of manual countings of specified controller in the  project of customer with parameters id,\ncid and offset, limit parameters",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "cm_info"
+                ],
+                "summary": "Get all manual countings of controller",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "default=0",
+                        "name": "offset",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "default=10",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Code 1S of customer",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "ControllerID",
+                        "name": "cid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ProjectMCResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ErrResponse"
+                        }
+                    },
+                    "405": {
+                        "description": "Method Not Allowed",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ErrResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/projects/{id}/ftpinfo": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Get specified customer/project ftp settings",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "cm_info"
+                ],
+                "summary": "Get customer's ftp settings by id",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Code 1S",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/domain.FTPinfo"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ErrResponse"
+                        }
+                    },
+                    "405": {
+                        "description": "Method Not Allowed",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ErrResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/tasks/controllers/{sn}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Get slice of tasks (json) for controller by serial number with limit parameters",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "intraservice"
+                ],
+                "summary": "Get all tasks for controller's serial number",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "default=10",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "SerialNumber of controller",
+                        "name": "sn",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/infra.SDTasksResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ErrResponse"
+                        }
+                    },
+                    "405": {
+                        "description": "Method Not Allowed",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ErrResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/tasks/{id}/comment": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Add comment to the Task in the ServiceDesk by TaskID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "intraservice"
+                ],
+                "summary": "Add comment to task",
+                "parameters": [
+                    {
+                        "description": "comment content",
+                        "name": "comment",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.TaskComment"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "TaskID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/infra.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ErrResponse"
+                        }
+                    },
+                    "405": {
+                        "description": "Method Not Allowed",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ErrResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/tasks/{id}/status": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Change status of the Task in the ServiceDesk by TaskID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "intraservice"
+                ],
+                "summary": "Change status task",
+                "parameters": [
+                    {
+                        "description": "status data description",
+                        "name": "status",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.TaskStatus"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "TaskID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/infra.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ErrResponse"
+                        }
+                    },
+                    "405": {
+                        "description": "Method Not Allowed",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ErrResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/videochecks/configs": {
+            "get": {
+                "description": "get slice of customer videocheck configuration with offset, limit parameters",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "cm_info"
+                ],
+                "summary": "Get all videocheck configurations",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "default=0",
+                        "name": "offset",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "default=10",
+                        "name": "limit",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/infra.VideoCheckResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ErrResponse"
+                        }
+                    },
+                    "405": {
+                        "description": "Method Not Allowed",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ErrResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "inserts customer videocheck configuration",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "cm_info"
+                ],
+                "summary": "Inserts new customer's videocheck configuration",
+                "parameters": [
+                    {
+                        "description": "New videocheck configuration",
+                        "name": "videocheckConfig",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.VideocheckConfig"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/infra.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ErrResponse"
+                        }
+                    },
+                    "405": {
+                        "description": "Method Not Allowed",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ErrResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/videochecks/configs/{pid}": {
+            "get": {
+                "description": "get customer videocheck configuration by customerID parameter",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "cm_info"
+                ],
+                "summary": "Get customer's videocheck configuration",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Code 1S",
+                        "name": "pid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/domain.CustomerConfig"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ErrResponse"
+                        }
+                    },
+                    "405": {
+                        "description": "Method Not Allowed",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ErrResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "updates customer videocheck configuration",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "cm_info"
+                ],
+                "summary": "Update customer's videocheck configuration",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Code 1S",
+                        "name": "pid",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "New videocheck configuration",
+                        "name": "videocheckConfig",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.VideocheckConfig"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/infra.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ErrResponse"
+                        }
+                    },
+                    "405": {
+                        "description": "Method Not Allowed",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ErrResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "delete customer videocheck configuration",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "cm_info"
+                ],
+                "summary": "Delete customer's videocheck configuration",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Code 1S",
+                        "name": "pid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/infra.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ErrResponse"
+                        }
+                    },
+                    "405": {
+                        "description": "Method Not Allowed",
+                        "schema": {
+                            "$ref": "#/definitions/infra.HTTPError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/infra.ErrResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "domain.Asset": {
+            "type": "object",
+            "properties": {
+                "changed": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "serviceDeskId": {
+                    "type": "integer"
+                },
+                "serviceDeskParentId": {
+                    "type": "integer"
+                }
+            }
+        },
+        "domain.Assets": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/domain.Asset"
+            }
+        },
+        "domain.ControllerTask": {
+            "type": "object",
+            "properties": {
+                "task": {
+                    "type": "string"
+                }
+            }
+        },
+        "domain.ControllerTasks": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/domain.ControllerTask"
+            }
+        },
+        "domain.CustomerConfig": {
+            "type": "object",
+            "properties": {
+                "customerId": {
+                    "type": "integer"
+                },
+                "customerName": {
+                    "type": "string"
+                },
+                "customerTypeId": {
+                    "type": "integer"
+                },
+                "sdCreatorId": {
+                    "type": "integer"
+                },
+                "sdDestination": {
+                    "type": "string"
+                },
+                "sdServiceId": {
+                    "type": "integer"
+                }
+            }
+        },
+        "domain.CustomerConfigs": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/domain.CustomerConfig"
+            }
+        },
+        "domain.Entities": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/domain.Entity"
+            }
+        },
+        "domain.Entity": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                }
+            }
+        },
+        "domain.FTPServer": {
+            "type": "object",
+            "properties": {
+                "password": {
+                    "description": "Password for login to FTP",
+                    "type": "string"
+                },
+                "root": {
+                    "description": "Root is subfolder for ftpUser home folder",
+                    "type": "string"
+                },
+                "server": {
+                    "description": "Server ip or DNS name of the ftp server",
+                    "type": "string"
+                },
+                "user": {
+                    "description": "User for logit to FTP",
+                    "type": "string"
+                }
+            }
+        },
+        "domain.FTPinfo": {
+            "type": "object",
+            "properties": {
+                "comment": {
+                    "description": "Comment комментарий",
+                    "type": "string"
+                },
+                "deviceFtp": {
+                    "description": "DeviceFTP настройки для устройств выгружающих видео на ФТП",
+                    "type": "object",
+                    "$ref": "#/definitions/domain.FTPServer"
+                },
+                "localPathFtp": {
+                    "description": "LocalPathFTP папка на локальном ФТП сервере клиента",
+                    "type": "string"
+                },
+                "mainFtp": {
+                    "description": "MainFTP настройки для внешнего взаимодействия с ФТП сервером, в основном из сети Ваткома",
+                    "type": "object",
+                    "$ref": "#/definitions/domain.FTPServer"
+                },
+                "proxyFtp": {
+                    "description": "ProxyFTP настройки для взаимодействия с ФТП сервером неким агентом. ФТП сервер может быть как буферный так и нет",
+                    "type": "object",
+                    "$ref": "#/definitions/domain.FTPServer"
+                },
+                "verified": {
+                    "description": "Verified флаг верификации параметров - 1 верифицирвана и параметрам можно доверять, 0 - наоборот",
+                    "type": "string"
+                },
+                "whenVerified": {
+                    "description": "WhenVerified когда произведена верификация",
+                    "type": "string"
+                },
+                "whoVerified": {
+                    "description": "WhoVerified имя того, кто произвел верификацию",
+                    "type": "string"
+                }
+            }
+        },
+        "domain.ManualCounting": {
+            "type": "object",
+            "properties": {
+                "chkSumOut": {
+                    "type": "integer"
+                },
+                "chkSumin": {
+                    "type": "integer"
+                },
+                "chkTimeEnd": {
+                    "type": "string"
+                },
+                "chkTimeStart": {
+                    "type": "string"
+                },
+                "fSumIn": {
+                    "type": "integer"
+                },
+                "fSumOut": {
+                    "type": "integer"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "sernomer": {
+                    "type": "string"
+                },
+                "sigmaSumIn": {
+                    "type": "number"
+                },
+                "sigmaSumOut": {
+                    "type": "number"
+                }
+            }
+        },
+        "domain.ManualCountings": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/domain.ManualCounting"
+            }
+        },
+        "domain.Project": {
+            "type": "object",
+            "properties": {
+                "dbName": {
+                    "type": "string"
+                },
+                "db_type": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "ip": {
+                    "type": "string"
+                },
+                "isEnabled": {
+                    "type": "boolean"
+                },
+                "login": {
+                    "type": "string"
+                },
+                "managerId": {
+                    "type": "integer"
+                },
+                "managerName": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "parentId": {
+                    "type": "integer"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "port": {
+                    "type": "integer"
+                },
+                "typeId": {
+                    "type": "integer"
+                },
+                "typeName": {
+                    "type": "string"
+                }
+            }
+        },
+        "domain.Projects": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/domain.Project"
+            }
+        },
+        "domain.TaskComment": {
+            "type": "object",
+            "properties": {
+                "comment": {
+                    "type": "string"
+                }
+            }
+        },
+        "domain.TaskStatus": {
+            "type": "object",
+            "properties": {
+                "comment": {
+                    "type": "string"
+                },
+                "isPrivateComment": {
+                    "type": "boolean"
+                },
+                "resultFieldName": {
+                    "type": "string"
+                },
+                "resultFieldValue": {
+                    "type": "string"
+                },
+                "statusId": {
+                    "type": "integer"
+                }
+            }
+        },
+        "domain.VideocheckConfig": {
+            "type": "object",
+            "properties": {
+                "localCam": {
+                    "type": "boolean"
+                },
+                "localFtp": {
+                    "type": "boolean"
+                },
+                "localServer": {
+                    "type": "boolean"
+                },
+                "options": {
+                    "type": "string"
+                },
+                "projectId": {
+                    "type": "integer"
+                }
+            }
+        },
+        "domain.VideocheckConfigs": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/domain.VideocheckConfig"
+            }
+        },
+        "infra.AssetsResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "object",
+                    "$ref": "#/definitions/domain.Assets"
+                },
+                "result_set": {
+                    "type": "object",
+                    "$ref": "#/definitions/infra.ResultSet"
+                }
+            }
+        },
+        "infra.CustomerResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "object",
+                    "$ref": "#/definitions/domain.CustomerConfigs"
+                },
+                "result_set": {
+                    "type": "object",
+                    "$ref": "#/definitions/infra.ResultSet"
+                }
+            }
+        },
+        "infra.ErrResponse": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "application-specific error code",
+                    "type": "integer"
+                },
+                "error": {
+                    "description": "application-level error message, for debugging",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "user-level status message",
+                    "type": "string"
+                }
+            }
+        },
+        "infra.HTTPError": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "object"
+                }
+            }
+        },
+        "infra.ProjectMCResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "object",
+                    "$ref": "#/definitions/domain.ManualCountings"
+                },
+                "result_set": {
+                    "type": "object",
+                    "$ref": "#/definitions/infra.ResultSet"
+                }
+            }
+        },
+        "infra.ProjectsResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "object",
+                    "$ref": "#/definitions/domain.Projects"
+                },
+                "result_set": {
+                    "type": "object",
+                    "$ref": "#/definitions/infra.ResultSet"
+                }
+            }
+        },
+        "infra.ReferenceResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "object",
+                    "$ref": "#/definitions/domain.Entities"
+                },
+                "result_set": {
+                    "type": "object",
+                    "$ref": "#/definitions/infra.ResultSet"
+                }
+            }
+        },
+        "infra.ResultSet": {
+            "type": "object",
+            "properties": {
+                "count": {
+                    "type": "integer"
+                },
+                "limit": {
+                    "type": "integer"
+                },
+                "offset": {
+                    "type": "integer"
+                },
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
+        "infra.SDTasksResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "object",
+                    "$ref": "#/definitions/domain.ControllerTasks"
+                },
+                "result_set": {
+                    "type": "object",
+                    "$ref": "#/definitions/infra.ResultSet"
+                }
+            }
+        },
+        "infra.SuccessResponse": {
+            "type": "object",
+            "properties": {
+                "httpcode": {
+                    "description": "http response status code",
+                    "type": "integer"
+                },
+                "message": {
+                    "description": "text of message",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "user-level status message",
+                    "type": "string"
+                }
+            }
+        },
+        "infra.VideoCheckResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "object",
+                    "$ref": "#/definitions/domain.VideocheckConfigs"
+                },
+                "result_set": {
+                    "type": "object",
+                    "$ref": "#/definitions/infra.ResultSet"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "ApiKeyAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    }
+}

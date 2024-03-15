@@ -1,0 +1,39 @@
+app: # метаданные приложения
+    name: 'commonapi' # наименование приложения
+httpd:
+    port: "8001" # http порт, который будет пытаться открыть приложения и принимать на него http запросы
+    host: ""  # ip адрес хоста который будет занимать приложение, можно оставить пустым
+    hardcode_token: "secret" # токен авторизации для работы с АПИЖ Authorization: Bearer secret
+    allow_origins: # CORS requests allowed
+    - "*" # for anybody
+intraservice: # параметры подключения к Интрасервису
+    dsn: "server=sd-test.watcom.ru;user id=commonapi;password=commonapi;port=1433;database=Intraservice;" # строка подключения к БД Intraservice
+    sqltimeout_sec: 30 # таймаут с которым работают запросы к БД, следует увеличить если база медленно отвечает
+    url: "http://sd-test.watcom.ru" # URL адрес АПИ интрасервиса
+    user: "tester" # пользователь для работы с интрасервисом
+    pass: "watcom" # пароль пользователя для работы с интрасервисом
+    httptimeout_sec: 15 # таймаут для работы с АПИ Интерасервиса, следует увелиить если АПИ медленно работает
+cminfo: # параметры подключения к БД CM_INFO
+    dsn: "sqlserver://root:master@study-app.watcom.local:1433?database=CM_Info_Test&connection_timeout=0&encrypt=disable" # строка подключения к БД CM_INFO
+    sqltimeout_sec: 30 # таймаут с которым работают запросы к БД, следует увеличить если база медленно отвечает
+ref: # параметры подключения к БД evolution, которая может быть на MSSQL или PostgreSQL определяется строкой подключения
+    dsn: "postgres://evolution:evolution@dworker-01:5432/evolution?sslmode=disable&pool_max_conns=2"
+    sqltimeout_sec: 30 # таймаут с которым работают запросы к БД, следует увеличить если база медленно отвечает
+cache:
+    type: redis # type of cache: redis, not implemented - inmemory
+    url: "elk-01.watcom.local:16379" # redis url
+    timeout_sec: 30 # таймаут с которым работают запросы к REDIS-y
+env: production # тип окружения в котором запускается сервис, production - логи в сокращенном формате
+log:
+    level: debug # уровень логирования сервиса: debug, info, warn, error
+    file: "" # имя файла лога, если пусто или stdout - будет выводить в stdout, если указано имя фацйла, будет писать в него
+consul: # параметры для авторегистрации и дерегистраии сервиса в CONSULe для service discovering-a
+    url: "elk-01:8500" # адрес consul сервера
+    serviceid: "commonapi-dev" # уникальный идентификатор сервиса, соответсвует имени контейнера (имена контейнеров во всей системе не должны совпадать)!
+    address: "elk-01.watcom.local" # адрес/fqnd имя сервера по которому будет видент данный сервис, host docker машины
+    port: 8000 # порт по которому доступны метрики и проверка здоровья сервиса снаружи
+tags: "develop,grib,commonapi,office" # теги сервиса по которым будет осущестляться поиск и разметка в мониторинге, количетсво и порядок строго определенные
+        # №1 окружение: develop, stage, production
+        # №2 проект откуда сервис: countmax, grib, focus etc...
+        # №3 семейство сервисов: commonapi, dbscanner, incidentmaker, transport.webui etc...
+        # №4 локация/датацентр где работает сервис

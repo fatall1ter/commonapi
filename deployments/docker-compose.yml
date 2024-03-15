@@ -1,0 +1,32 @@
+---
+version: '2'
+services:
+  redis:
+    restart: always
+    image: redis:alpine
+    container_name: commonapi-redis
+    networks: ['commonapi-dev']
+    volumes:
+      - 'commonapi_redis_data:/data'
+  commonapi:
+    restart: always
+    image: hub.watcom.ru/commonapi:latest
+    container_name: commonapi-dev
+    ports: ['7007:8000']
+    environment:
+      COMMAPI_HTTPD_PORT: 8000
+      COMMAPI_HTTPD_HARDCODE_TOKEN: MY-Token-value
+      COMMAPI_INTRASERVICE_DSN: "server=sd-test.watcom.ru;user id=commonapi;password=commonapi;port=1433;database=Intraservice;"
+      COMMAPI_INTRASERVICE_URL: "http://sd-test.watcom.ru"
+      COMMAPI_CMINFO_DSN: "sqlserver://commonapi:commonapi@sql2-caravan.watcom.local:1433?database=CM_Info_Test&connection_timeout=0&encrypt=disable"
+      COMMAPI_CONSUL_SERVICEID: commonapi-dev
+      COMMAPI_CONSUL_ADDRESS: elk-01.watcom.local
+      COMMAPI_CONSUL_PORT: 7007
+      COMMAPI_CONSUL_TAGS: "develop,countmax,commonapi,office"
+      COMMAPI_LOG_LEVEL: info
+      COMMAPI_CACHE_URL: commonapi-redis:6379
+    networks: ['commonapi-dev']
+networks: {commonapi-dev: {}}
+volumes:
+  commonapi_redis_data:
+...
